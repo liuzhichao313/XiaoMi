@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>小米商城</title>
+		<style>
+			*{
+				font-family:微软雅黑;}
+		</style>
+		<script type="text/javascript" src="js/jquery3.2.1.min.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$("#unameExists").hide(); //让错误提示隐藏
+				$("#uname").blur(function(){ //用户名输入框失去焦点时触发
+					//获取用户当前输入的名称
+					var uname = $("#uname").val();
+					//请求服务器
+					$.post("UserController?op=userExists",
+							{"uname":uname},
+							function(data){
+								var res = JSON.stringify(data);
+								if(res.indexOf("exist")>=0)
+									//根据服务器返回的结果，在页面中给用户以提示
+									$("#unameExists").show();
+					},"json");
+					
+					
+					
+				});
+			});
+		</script>
+</head>
+
+<body background="images/regist.png">
+	<div style="border:1px solid #fff; width:210px; height:50px; float:right; margin-top:650px;"></div>
+	<div style="border:1px solid #Fff; width:398px; height: 450px; margin-left:829px; margin-top:129px;">
+    	<form  action="UserController?op=regist" method="post">
+        	<div style="margin-left:160px; margin-top:10px; font-size:24px; color:#333333;">用户注册</div>
+            <div style="border:1px solid #Fff; margin:15px 30px; width:300px;">
+            	<span style="text-align:center;">用户名：</span><input type="text" name="uname" id="uname" style="width:190px;"/>
+                <strong><span id="unameExists" style="color:red;font-size:12px;">用户名已经存在，请输入新的名字</span></strong>
+            </div>
+            <div style="border:1px solid #Fff; margin:15px 30px;">
+            	<span>手机号：</span><input type="tel" name="tel" style="width:190px;"/>
+            </div>
+            <div style="border:1px solid #Fff; margin:15px 30px;">
+            	<span>昵&nbsp;&nbsp;&nbsp;称：</span><input type="text" name="nickname" style="width:190px;"/>
+            </div>
+            <div style="border:1px solid #Fff; margin:15px 30px;">
+            	<span>密&nbsp;&nbsp;&nbsp;码：</span><input type="password" name="upwd" style="width:190px;"/>
+            </div>
+            <div style="border:1px solid #Fff; margin:15px 30px;">
+            	<span>邮&nbsp;&nbsp;&nbsp;箱：</span><input type="email" name="email" style="width:190px;"/>
+            </div>
+            <div style="border:1px solid #Fff; margin:15px 30px;">
+            	<span>性&nbsp;&nbsp;&nbsp;别：</span>
+                <input type="radio" name="gender" value="male" checked="checked" style="width:5%; margin-left:55px;"/>男&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" name="gender" value="female"  style="width:5%;"/>女
+            </div>
+            <div style="border:1px solid #Fff; margin:15px 30px;">
+            	<span>证&nbsp;&nbsp;&nbsp;件：</span>
+                <select name="zhengJian" style="width: 56%;"> 
+					<option value="1"  checked="checked" >身份证</option> 
+					<option value="2">护照</option> 
+					<option value="3" >临时身份证</option> 
+				</select> 
+            </div>
+            <div style="border:1px solid #Fff; margin:15px 30px;">
+            	<span>关&nbsp;&nbsp;&nbsp;注：</span>
+                <input type="checkbox" name="hobby" value="phone" style="width:3%;">手机
+				<input type="checkbox" name="hobby" value="ring"  style="width:3%;">手环
+				<input type="checkbox" name="hobby" value="car"  style="width:3%;">平衡车
+            </div>
+            <div style="border:1px solid #Fff; margin:30px 30px;">
+            	<input type="submit" value="注册" style="width:30%; margin-left:120px;"/>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

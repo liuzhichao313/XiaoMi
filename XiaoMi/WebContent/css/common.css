@@ -1,0 +1,10 @@
+@charset "utf-8";
+/* CSS Document */
+* { margin:0; padding:0;}
+li { list-style:none;}
+a { text-decoration:none;}
+.left { float:left;}
+.right { float:right;}
+.clearFix { content:''; clear:both; display:block;}
+.clearFix { zoom:1;}
+div { font-family:'微软雅黑';}
